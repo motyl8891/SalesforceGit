@@ -14,7 +14,7 @@
         username="${sfdc.username}"
         password="${sfdc.password}"
         serverurl="${sfdc.serverurl}"
-        unpackaged="src/package.xml"/>
+        unpackaged="unpackaged/package.xml"/>
       <move file="${basedir}/${sfdc.retrieveTarget}" tofile="src"/>
     </target>
  

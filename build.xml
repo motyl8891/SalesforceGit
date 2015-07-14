@@ -1,5 +1,5 @@
-<project name="Retrieve and Deploy SFDC metadata" default="deployEmptyCheckOnly" basedir=".." xmlns:sf="antlib:com.salesforce">
-    <taskdef uri="antlib:com.salesforce"
+<project name="Retrieve and Deploy SFDC metadata" default="deployEmptyCheckOnly" basedir=".." xmlns:sf="antlib:net.sf.antcontrib">
+    <taskdef uri="antlib:net.sf.antcontrib"
         resource="net/sf/antcontrib/antlib.xml"
         classpath="${basedir}/build/ant-salesforce.jar"/>
  

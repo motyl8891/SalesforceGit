@@ -1,7 +1,7 @@
 <project name="Retrieve and Deploy SFDC metadata" default="deployEmptyCheckOnly" basedir=".." xmlns:sf="antlib:com.salesforce">
     <taskdef uri="antlib:com.salesforce"
         resource="com/salesforce/antlib.xml"
-        classpath="${basedir}/lib/ant-salesforce.jar"/>
+        classpath="${basedir}/ant-salesforce.jar"/>
  
     <property file="${basedir}/build.properties"/>
     <property environment="env"/>

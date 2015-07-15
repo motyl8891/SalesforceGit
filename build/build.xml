@@ -21,6 +21,7 @@
     <target name="deployCode">
       <echo level="info">Performing the deploy</echo>
       <sf:deploy
+		runAllTests="true"
         username="${sfdc.username}"
         password="${sfdc.password}"
         serverurl="${sfdc.serverurl}"

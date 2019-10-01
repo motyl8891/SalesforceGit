@@ -43,4 +43,18 @@
           maxPoll="${sfdc.maxPoll}" 
           runAllTests="true" />
     </target>
+	
+    <target name="runTests">
+	<sf:deploy 
+		username="${sf.username}" 
+		password="${sf.password}"  
+		serverurl="${sf.serverurl}" 
+		maxPoll="${sf.maxPoll}" 
+		deployRoot="tests" 
+		pollWaitMillis="4000"
+		runAllTests="true"
+		testLevel="RunLocalTests"
+		rollbackOnError="true"
+	/>
+    </target>
 </project>

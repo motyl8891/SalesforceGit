@@ -46,10 +46,10 @@
 	
     <target name="runTests">
 	<sf:deploy 
-		username="${sf.username}" 
-		password="${sf.password}"  
-		serverurl="${sf.serverurl}" 
-		maxPoll="${sf.maxPoll}" 
+		username="${sfdc.username}" 
+		password="${sfdc.password}"  
+		serverurl="${sfdc.serverurl}" 
+		maxPoll="${sfdc.maxPoll}" 
 		deployRoot="tests" 
 		pollWaitMillis="4000"
 		runAllTests="true"

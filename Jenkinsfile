@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-                bat 'ant runTests' 
+			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    bat 'ant runTests'
+                }
             }
         }
     }

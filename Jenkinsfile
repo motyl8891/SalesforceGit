@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-                bat 'ant -p' 
+                bat 'ant runTests' 
             }
         }
     }

@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Stage 1') {
             steps {
-                bat 'dir' 
+                bat 'ant -p' 
             }
         }
     }

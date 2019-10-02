@@ -8,6 +8,7 @@ pipeline {
 					
                 }
             }
+		}
 		stage('Stage 2') {
             steps {
 				def post = new URL("https://login.salesforce.com/services/oauth2/token").openConnection();

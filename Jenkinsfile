@@ -20,6 +20,7 @@ pipeline {
 					def postRC = post.getResponseCode();
 					println(postRC);
 					if(postRC.equals(200)) {
+						def jsonSlurper = new JsonSlurper()
 						def token = jsonSlurper.parseText(post.getInputStream().getText())
 						println(token.access_token);
 					}

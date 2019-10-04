@@ -28,7 +28,7 @@ pipeline {
 						getCodeCoverage.setRequestMethod("GET")
 						getCodeCoverage.setRequestProperty("Authorization", "Bearer " + token.access_token)
 						getCodeCoverage.setRequestProperty("Accept-Encoding", "gzip,deflate")
-						getCodeCoverage.setRequestProperty("Content-Type", "application/json")
+						getCodeCoverage.setRequestProperty("Content-Type", "text/plain; charset=UTF-8")
 						def getCodeCoverageRC = getCodeCoverage.getResponseCode();
 						println(getCodeCoverageRC);
 						if(getCodeCoverageRC.equals(200)) {

@@ -38,7 +38,7 @@ pipeline {
 									percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0
 									print(codeCoverageJson.records[i].ApexClassOrTrigger.Name + " " + percentageResult.toInteger().toString() + "%")
 										//println( " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
-									print(percentageResult.toInteger().toString() + "%")
+									//print(percentageResult.toInteger().toString() + "%")
 								}
 							}
 						}

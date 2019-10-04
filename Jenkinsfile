@@ -34,7 +34,7 @@ pipeline {
 							def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
 							//println(codeCoverageJson.records)
 							for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
-								println(codeCoverageJson.records[i])
+								println(codeCoverageJson.records[i].ApexClassOrTrigger.Name)
 							}
 						}
 					}

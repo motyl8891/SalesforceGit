@@ -31,9 +31,10 @@ pipeline {
 						println(getCodeCoverageRC);
 						if(getCodeCoverageRC.equals(200)) {
 							def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
+							def percentageResult
 							//println(codeCoverageJson.records)
 							for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
-								if(codeCoverageJson.records[i].ApexClassOrTrigger != null) println(codeCoverageJson.records[i].ApexClassOrTrigger.Name + " " + Float.parseFloat(codeCoverageJson.records[i].NumLinesCovered) / Float.parseFloat(codeCoverageJson.records[i].NumLinesCovered) + Float.parseFloat(codeCoverageJson.records[i].NumLinesUncovered) + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
+								if(codeCoverageJson.records[i].ApexClassOrTrigger != null) println(codeCoverageJson.records[i].ApexClassOrTrigger.Name + " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
 							}
 						}
 					}

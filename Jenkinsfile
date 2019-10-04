@@ -37,7 +37,7 @@ pipeline {
 								if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 									percentageResult = codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered
 									println(codeCoverageJson.records[i].ApexClassOrTrigger.Name)
-										//+ " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
+										println( " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
 									println(percentageResult)
 								}
 							}

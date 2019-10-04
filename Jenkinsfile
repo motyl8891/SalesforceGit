@@ -34,7 +34,12 @@ pipeline {
 							def percentageResult
 							//println(codeCoverageJson.records)
 							for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
-								if(codeCoverageJson.records[i].ApexClassOrTrigger != null) println(codeCoverageJson.records[i].ApexClassOrTrigger.Name + " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
+								if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
+									percentageResult = codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered
+									println(codeCoverageJson.records[i].ApexClassOrTrigger.Name)
+										//+ " " + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
+									println(percentageResult)
+								}
 							}
 						}
 					}

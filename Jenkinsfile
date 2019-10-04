@@ -32,7 +32,7 @@ pipeline {
 						println(getCodeCoverageRC);
 						if(getCodeCoverageRC.equals(200)) {
 							def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
-							println(codeCoverageJson)
+							println(codeCoverageJson.records)
 						}
 					}
 				}
@@ -40,7 +40,6 @@ pipeline {
         }
 		stage('Stage 3') {
             steps {
-				bat 'curl -i -H "Content-Type: text/plain; charset=UTF-8" -H "Authorization: Bearer 00D24000000IMqM!AQ0AQOKr1m36U6rmTdQzl7v5qfG_J0q.1oR.RSkvmezlDWWeyxEfU.HpkIY72GkG3D80n6I9KVEak49PEEca6ysxbgU9BCx3" https://slawekgolabek-dev-ed.my.salesforce.com/services/data/v46.0/tooling/query?q=SELECT+ApexClassOrTriggerId,ApexClassOrTrigger.Name,NumLinesCovered,NumLinesUncovered+FROM+ApexCodeCoverageAggregate -o codeCoverage.txt'
 				bat 'dir'
             }	
         }

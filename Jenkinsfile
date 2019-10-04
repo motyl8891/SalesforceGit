@@ -26,7 +26,7 @@ pipeline {
 						println(token.access_token);
 						def getCodeCoverage = new URL("https://slawekgolabek-dev-ed.my.salesforce.com/services/data/v46.0/tooling/query?q=SELECT+ApexClassOrTriggerId,ApexClassOrTrigger.Name,NumLinesCovered,NumLinesUncovered+FROM+ApexCodeCoverageAggregate").openConnection();
 						getCodeCoverage.setRequestMethod("GET")
-						getCodeCoverage.setRequestProperty("Authorization", "Bearer " + token)
+						getCodeCoverage.setRequestProperty("Authorization", "Bearer " + token.access_token)
 						getCodeCoverage.setRequestProperty("Accept-Encoding", "gzip,deflate")
 						getCodeCoverage.setRequestProperty("Content-Type", "application/json")
 						def getCodeCoverageRC = getCodeCoverage.getResponseCode();

@@ -12,7 +12,7 @@ pipeline {
 		stage('Stage 2') {
             steps {
 				script {
-					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '<CREDENTIAL_ID>',
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 						println(env.USERNAME)
 					}

@@ -13,10 +13,10 @@ pipeline {
 				script {
 					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-						println(env.USERNAME)
+						println(USERNAME)
 					}
                     def getToken = new URL("https://login.salesforce.com/services/oauth2/token").openConnection();
-					def message = 'grant_type=password&client_id=3MVG9Rd3qC6oMalWhbVCYXzU3BsrNv6czDGf6e8kjd2EE4DWjo7_HBn13WrXGBYGZl.6XKyfCOwZlEvJsUcZd&client_secret=4568422502070516129&username='+env.USERNAME+'&password='+env.PASSWORD
+					def message = 'grant_type=password&client_id=3MVG9Rd3qC6oMalWhbVCYXzU3BsrNv6czDGf6e8kjd2EE4DWjo7_HBn13WrXGBYGZl.6XKyfCOwZlEvJsUcZd&client_secret=4568422502070516129&username='+slawekgolabek@gmail.com+'&password=!qazxsw2'
 					getToken.setRequestMethod("POST")
 					getToken.setDoOutput(true)
 					getToken.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")

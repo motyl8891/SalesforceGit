@@ -56,7 +56,7 @@ pipeline {
             steps {
 				script {
 					env.WORKSPACE = pwd()
-					def file = readFile "${env.WORKSPACE}/file.html"
+					def file = readFile "${env.WORKSPACE}/log.txt"
 				}
             }	
         }

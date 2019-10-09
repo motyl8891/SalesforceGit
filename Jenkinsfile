@@ -5,6 +5,7 @@ pipeline {
         stage('Stage 1') {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+				bat 'ant runTests >> log.txt'
                 }
             }
 		}
@@ -50,6 +51,20 @@ pipeline {
             }	
         }
 		stage('Stage 3') {
+            steps {
+				script {
+					File file = new File("log.txt")
+					def line, noOfLines = 0;
+					file.withReader { reader ->
+						while ((line = reader.readLine()) != null) {
+							println "${line}"
+							noOfLines++
+						}
+					}
+				}
+            }	
+        }
+		stage('Stage 4') {
             steps {
 				bat 'dir'
             }	

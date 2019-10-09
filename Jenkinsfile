@@ -55,14 +55,8 @@ pipeline {
 		stage('Stage 3') {
             steps {
 				script {
-					File file = new File("C:\\Program Files (x86)\\Jenkins\\workspace\\TestPipeline\\log.txt")
-					def line, noOfLines = 0;
-					file.withReader { reader ->
-						while ((line = reader.readLine()) != null) {
-							println "${line}"
-							noOfLines++
-						}
-					}
+					env.WORKSPACE = pwd()
+					def file = readFile "${env.WORKSPACE}/file.html"
 				}
             }	
         }

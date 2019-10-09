@@ -6,12 +6,13 @@ pipeline {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 				bat 'ant runTests >> log.txt'
-				bat 'dir'
+				
                 }
             }
 		}
 		stage('Stage 2') {
             steps {
+				bat 'dir'
 				script {
 					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {

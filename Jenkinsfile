@@ -6,6 +6,7 @@ pipeline {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 				bat 'ant runTests >> log.txt'
+				bat 'dir'
                 }
             }
 		}

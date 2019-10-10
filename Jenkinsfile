@@ -69,6 +69,9 @@ pipeline {
 		stage('Stage 4') {
             steps {
 				bat 'dir'
+				script {
+					deleteDir()
+				}
             }	
         }
     }

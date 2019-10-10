@@ -5,7 +5,7 @@ pipeline {
         stage('Stage 1') {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-				bat 'ant runTests >> log.txt'
+				bat 'ant runTests'
 				
                 }
             }
@@ -58,6 +58,8 @@ pipeline {
 					env.WORKSPACE = pwd()
 					def file = readFile "${env.WORKSPACE}/log.txt"
 					def fileTable = file.split("\n")
+					def finalTextTable
+					def writingFlag = false
 					for (int i = 0; i < fileTable.size(); ++i) {
 						println(fileTable[i])
 					}

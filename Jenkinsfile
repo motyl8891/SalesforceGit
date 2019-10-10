@@ -6,7 +6,7 @@ pipeline {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
-						stdout = bat(returnStdout: true, script: 'ant runTests')
+						stdout = bat(returnStdout: true, script: 'ant runTests >> log.txt')
 						def fileTableBat = stdout.split("\n")
 						for (int i = 0; i < fileTableBat.size(); ++i) {
 							println(fileTableBat[i])

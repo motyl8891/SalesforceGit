@@ -57,6 +57,10 @@ pipeline {
 				script {
 					env.WORKSPACE = pwd()
 					def file = readFile "${env.WORKSPACE}/log.txt"
+					def fileTable = file.split("\n")
+					for (int i = 0; i < fileTable.size(); ++i) {
+						println(fileTable[i])
+					}
 				}
             }	
         }

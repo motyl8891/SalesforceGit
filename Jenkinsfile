@@ -7,7 +7,10 @@ pipeline {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
 						stdout = bat(returnStdout: true, script: 'ant runTests')
-						println("stdout ################ " + stdout + " ####################")
+						def fileTableBat = stdout.split("\n")
+						for (int i = 0; i < fileTableBat.size(); ++i) {
+							println(fileTableBat[i])
+						}
 					}
                 }
             }

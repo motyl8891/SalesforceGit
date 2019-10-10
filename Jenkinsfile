@@ -5,8 +5,10 @@ pipeline {
         stage('Stage 1') {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-				stdout = bat(returnStdout: true, script: 'ant runTests')
-				println("stdout ################ " + stdout + " ####################")
+					script {
+						stdout = bat(returnStdout: true, script: 'ant runTests')
+						println("stdout ################ " + stdout + " ####################")
+					}
                 }
             }
 		}

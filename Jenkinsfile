@@ -6,6 +6,11 @@ pipeline {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
+						if (fileExists("$JENKINS_HOME/email-templates/Summary.htm")) {
+							new File("$JENKINS_HOME/email-templates/Summary.htm").delete()
+						} else {
+							println "Summary.htm file not found"
+						}
 						withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
 						usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 							stdout = bat(returnStdout: true, script: 'ant runTests >> log.txt')
@@ -103,11 +108,6 @@ pipeline {
 				}
 				println(emailBodyVar)
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
-				if (fileExists("$JENKINS_HOME/email-templates/Summary.htm")) {
-					new File("$JENKINS_HOME/email-templates/Summary.htm").delete()
-				} else {
-					println "test.zip file not found"
-				}
 			}
         }
     }

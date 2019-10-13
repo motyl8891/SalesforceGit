@@ -58,7 +58,7 @@ pipeline {
 									}
 								}
 								emailBodyVar += "</table>"
-								File file = new File("Summary.htm")
+								File file = new File("${env.WORKSPACE}/Summary.htm")
 								file.write emailBodyVar
 								println(emailBodyVar)
 							} else {

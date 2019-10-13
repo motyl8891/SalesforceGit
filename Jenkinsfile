@@ -13,7 +13,7 @@ pipeline {
 						}
 						withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
 						usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-							stdout = bat(returnStdout: true, script: 'ant runTests >> log.txt')
+							stdout = bat(returnStdout: true, script: 'ant -Dsfdc.username='+USERNAME+' -Dsfdc.password='+PASSWORD+' runTests >> log.txt')
 							def fileTableBat = stdout.split("\n")
 							for (int i = 0; i < fileTableBat.size(); ++i) {
 								println(fileTableBat[i])

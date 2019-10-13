@@ -97,7 +97,7 @@ pipeline {
         always {
 			script{
 				env.ForEmailPlugin = env.WORKSPACE
-				emailext mimeType: 'text/html', body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results'
+				emailext mimeType: 'text/html', body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results  ${jobName}'
 			}
         }
     }

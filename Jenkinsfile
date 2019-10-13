@@ -55,7 +55,8 @@ pipeline {
 									}
 								}
 								emailBodyVar += "</table>"
-								emailext body: emailBodyVar, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results'
+								File file = new File("Summary.htm")
+								file.write emailBodyVar
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
@@ -88,6 +89,10 @@ pipeline {
             }	
         }
     }
-	
+	post {
+        always {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results'
+        }
+    }
 }
 

@@ -50,7 +50,7 @@ pipeline {
 							if(getCodeCoverageRC.equals(200)) {
 								def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
 								def percentageResult
-								def emailBodyVar = "<body><table><tr><th>Class Name</th><th>Coverage(%)</th></tr>"
+								def emailBodyVar = "<body>Hello,<br /><br /><table><tr><th>Class Name</th><th>Coverage(%)</th></tr>"
 								for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
 									if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 										percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0
@@ -60,7 +60,6 @@ pipeline {
 								emailBodyVar += "</table>"
 								File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
 								emailFile.write emailBodyVar
-								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
 							}

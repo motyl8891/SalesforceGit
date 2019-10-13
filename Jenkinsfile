@@ -54,7 +54,9 @@ pipeline {
 								}
 								emailBodyVar += "</table>"
 								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
-								file.write emailBodyVar
+								file.newWriter().withWriter { w ->
+								  w << emailBodyVar
+								}
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());

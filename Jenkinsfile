@@ -58,8 +58,9 @@ pipeline {
 									}
 								}
 								emailBodyVar += "</table>"
-								File file = new File("${env.WORKSPACE}/Summary.htm")
+								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
 								file.write emailBodyVar
+
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
@@ -83,7 +84,7 @@ pipeline {
 				}
             }	
         }
-		stage('Refresh Workspace') {
+		stage('Clean Workspace') {
             steps {
 				bat 'dir'
 				script {

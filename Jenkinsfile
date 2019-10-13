@@ -94,7 +94,7 @@ pipeline {
     }
 	post {
         always {
-			
+			env.ForEmailPlugin = env.WORKSPACE
             emailext body: '''${SCRIPT, template="${env.WORKSPACE}/log.txt"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results'
         }
     }

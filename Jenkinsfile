@@ -45,22 +45,17 @@ pipeline {
 							if(getCodeCoverageRC.equals(200)) {
 								def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
 								def percentageResult
-								//println(codeCoverageJson.records)
 								def emailBodyVar = "<body><table><tr><th>Class Name</th><th>Coverage(%)</th></tr>"
-								//println("<table><tr><th>Class Name</th><th>Coverage(%)</th></tr>")
 								for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
 									if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 										percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0
 										//print("<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "</td><td>" + percentageResult.toInteger().toString() + "%</td></tr>")
 										emailBodyVar += "<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "</td><td>" + percentageResult.toInteger().toString() + "%</td></tr>"
-											//println( "<tr><td>" + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
-										//print(percentageResult.toInteger().toString() + "%")
 									}
 								}
 								emailBodyVar += "</table></body>"
 								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
 								file.write emailBodyVar
-
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
@@ -73,14 +68,7 @@ pipeline {
 		stage('Get Jenkins Log') {
             steps {
 				script {
-					env.WORKSPACE = pwd()
-					def file = readFile "${env.WORKSPACE}/log.txt"
-					def fileTable = file.split("\n")
-					def finalTextTable
-					def writingFlag = false
-					for (int i = 0; i < fileTable.size(); ++i) {
-						println(fileTable[i])
-					}
+					
 				}
             }	
         }
@@ -96,6 +84,14 @@ pipeline {
 	post {
         always {
 			script{
+				env.WORKSPACE = pwd()
+				def file = readFile "${env.WORKSPACE}/log.txt"
+				def fileTable = file.split("\n")
+				def finalTextTable
+				def writingFlag = false
+				for (int i = 0; i < fileTable.size(); ++i) {
+					println(fileTable[i])
+				}
 				env.ForEmailPlugin = env.WORKSPACE
 				emailext mimeType: 'text/html', body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}

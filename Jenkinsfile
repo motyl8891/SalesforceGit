@@ -56,7 +56,7 @@ pipeline {
 								def file = readFile "$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_ID/log"
 								def fileTable = file.split("\n")
 								def writingFlag = false
-								def emailBodyVar = "<br /><table><tr><th>Failures</th></tr>"
+								emailBodyVar += "<br /><table><tr><th>Failures</th></tr>"
 								for (int i = 0; i < fileTable.size(); ++i) {
 									if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********"))
 										writingFlag = !writingFlag

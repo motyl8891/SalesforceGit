@@ -98,7 +98,7 @@ pipeline {
 				}
 				emailBodyVar += "</table></body>"
 				if(emailBodyVar != "<br /><table><tr><th>Failures</th></tr></table></body>") {
-					File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
+					File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
 					file.append emailBodyVar
 				}
 				println(emailBodyVar)

@@ -43,7 +43,7 @@ pipeline {
 								def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
 								def percentageResult
 								//println(codeCoverageJson.records)
-								println("<table><tr><th>Class Name<//th><th>Coverage(%)<//tr>")
+								println("<table><tr><th>Class Name</th><th>Coverage(%)</th></tr>")
 								for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
 									if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 										percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0

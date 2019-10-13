@@ -94,12 +94,8 @@ pipeline {
     }
 	post {
         always {
-            emailext 
-				body: "Test", 
-				recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
-				[$class: 'RequesterRecipientProvider'],
-				[$class: 'UpstreamComitterRecipientProvider']], 
-				subject: 'Org Coverage Test Results'
+			
+            emailext body: '''${SCRIPT, template="${env.WORKSPACE}/log.txt"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results'
         }
     }
 }

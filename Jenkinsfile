@@ -103,7 +103,8 @@ pipeline {
 	post {
         always {
 			script{
-				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
+				def file = readFile "$JENKINS_HOME/email-templates/Summary.htm"
+				emailext mimeType: 'text/html', attachLog: true, body: file, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}
         }
     }

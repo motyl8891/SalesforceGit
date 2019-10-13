@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 pipeline {
     agent any 
     stages {
-        stage('Stage 1') {
+        stage('Get Class Errors') {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
@@ -15,7 +15,7 @@ pipeline {
                 }
             }
 		}
-		stage('Stage 2') {
+		stage('Get Code Coverage') {
             steps {
 				bat 'dir'
 				script {
@@ -61,7 +61,7 @@ pipeline {
 				}
             }	
         }
-		stage('Stage 3') {
+		stage('Get Jenkins Log') {
             steps {
 				script {
 					env.WORKSPACE = pwd()
@@ -75,7 +75,7 @@ pipeline {
 				}
             }	
         }
-		stage('Stage 4') {
+		stage('Refresh Workspace') {
             steps {
 				bat 'dir'
 				script {

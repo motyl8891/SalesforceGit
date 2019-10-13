@@ -68,7 +68,7 @@ pipeline {
 		stage('Get Jenkins Log') {
             steps {
 				script {
-					
+					println("Test")
 				}
             }	
         }

@@ -90,7 +90,11 @@ pipeline {
 				def finalTextTable
 				def writingFlag = false
 				for (int i = 0; i < fileTable.size(); ++i) {
-					println(fileTable[i])
+					if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********") {
+						writingFlag = !writingFlag
+					}
+					if(writingFlag)
+						println(fileTable[i])
 				}
 				env.ForEmailPlugin = env.WORKSPACE
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'

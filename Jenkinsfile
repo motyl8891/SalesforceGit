@@ -38,7 +38,7 @@ pipeline {
 						getCodeCoverage.setRequestProperty("Authorization", "Bearer " + token.access_token)
 						getCodeCoverage.setRequestProperty("Content-Type", "text/plain; charset=UTF-8")
 						def getCodeCoverageRC = getCodeCoverage.getResponseCode();
-						println(getCodeCoverage);
+						println(getCodeCoverage.getStatus());
 						if(getCodeCoverageRC.equals(200)) {
 							def codeCoverageJson = jsonSlurper.parseText(getCodeCoverage.getInputStream().getText())
 							def percentageResult

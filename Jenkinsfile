@@ -95,8 +95,8 @@ pipeline {
 					if(writingFlag) {
 						emailBodyVar += "<tr><td>" + fileTable[i] + "</td></tr>"
 					}
-					emailBodyVar += "</table></body>"
 				}
+				emailBodyVar += "</table></body>"
 				println(emailBodyVar)
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}

@@ -83,7 +83,7 @@ pipeline {
 							emailBodyVar += "<tr><td>" + fileTable[i] + "</td></tr>"
 						}
 					}
-					emailBodyVar += "</table><br /><br />"<table><tr><td>Regards</td></tr><tr><td>Salesforce System Monitoring Team</td></tr></table>"</body>"
+					emailBodyVar += "</table><br /><br />"<table><tr><td>Regards</td></tr><tr><td>Salesforce System Monitoring Team</td></tr></table></body>"
 					if(emailBodyVar != "<br /><table><tr><th>Failures</th></tr></table></body>") {
 						File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
 						emailFile.append(emailBodyVar)

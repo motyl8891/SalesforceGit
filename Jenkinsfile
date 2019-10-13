@@ -85,7 +85,7 @@ pipeline {
         always {
 			script{
 				env.WORKSPACE = pwd()
-				def file = readFile "${BUILD_URL}/consoleText"
+				def file = readFile "$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_ID/log"
 				def fileTable = file.split("\n")
 				def finalTextTable
 				def writingFlag = false

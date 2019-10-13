@@ -47,12 +47,12 @@ pipeline {
 								for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
 									if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 										percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0
-										print("<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "<//td><td>" + percentageResult.toInteger().toString() + "%<//td><//tr>")
+										print("<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "</td><td>" + percentageResult.toInteger().toString() + "%</td></tr>")
 											//println( "<tr><td>" + codeCoverageJson.records[i].NumLinesCovered + "%"+ codeCoverageJson.records[i].NumLinesUncovered)
 										//print(percentageResult.toInteger().toString() + "%")
 									}
 								}
-								println("<//table>")
+								println("</table>")
 							} else {
 								println(getCodeCoverage.getStatus());
 							}

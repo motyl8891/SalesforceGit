@@ -53,11 +53,20 @@ pipeline {
 									}
 								}
 								emailBodyVar += "</table>"
-								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
-								def w = file.newWriter() 
-
-								w << emailBodyVar
-								//w.close()
+								def file = readFile "$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_ID/log"
+								def fileTable = file.split("\n")
+								def writingFlag = false
+								def emailBodyVar = "<br /><table><tr><th>Failures</th></tr>"
+								for (int i = 0; i < fileTable.size(); ++i) {
+									if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********"))
+										writingFlag = !writingFlag
+									if(writingFlag) {
+										emailBodyVar += "<tr><td>" + fileTable[i] + "</td></tr>"
+									}
+								}
+								emailBodyVar += "</table></body>"
+								File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
+								emailFile.write emailBodyVar
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
@@ -70,26 +79,7 @@ pipeline {
 		stage('Get Jenkins Log') {
             steps {
 				script {
-					env.WORKSPACE = pwd()
-					def file = readFile "$JENKINS_HOME/jobs/$JOB_NAME/builds/$BUILD_ID/log"
-					def fileTable = file.split("\n")
-					def finalTextTable
-					def writingFlag = false
-					def emailBodyVar = "<br /><table><tr><th>Failures</th></tr>"
-					for (int i = 0; i < fileTable.size(); ++i) {
-						if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********"))
-							writingFlag = !writingFlag
-						if(writingFlag) {
-							emailBodyVar += "<tr><td>" + fileTable[i] + "</td></tr>"
-						}
-					}
-					emailBodyVar += "</table></body>"
-					if(emailBodyVar != "<br /><table><tr><th>Failures</th></tr></table></body>") {
-						File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
-						emailFile.append(emailBodyVar)
-						//emailFile.close()
-					}
-					println(emailBodyVar)
+					println("Test")
 				}
             }	
         }
@@ -105,8 +95,12 @@ pipeline {
 	post {
         always {
 			script{
-				
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
+				/*if (fileExists("$JENKINS_HOME/email-templates/Summary.htm")) {
+					new File('test.zip').delete()
+				} else {
+					println "test.zip file not found"
+				}*/
 			}
         }
     }

@@ -84,16 +84,16 @@ pipeline {
 	post {
         always {
 			script{
-				env.WORKSPACE = pwd()
+				/*env.WORKSPACE = pwd()
 				def file = readFile "${env.WORKSPACE}/log.txt"
 				def fileTable = file.split("\n")
 				def finalTextTable
 				def writingFlag = false
 				for (int i = 0; i < fileTable.size(); ++i) {
 					println(fileTable[i])
-				}
+				}*/
 				env.ForEmailPlugin = env.WORKSPACE
-				emailext mimeType: 'text/html', body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
+				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}
         }
     }

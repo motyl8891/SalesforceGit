@@ -97,6 +97,10 @@ pipeline {
 					}
 				}
 				emailBodyVar += "</table></body>"
+				if(emailBodyVar != "<br /><table><tr><th>Failures</th></tr></table></body>") {
+					File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
+					file.append emailBodyVar
+				}
 				println(emailBodyVar)
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}

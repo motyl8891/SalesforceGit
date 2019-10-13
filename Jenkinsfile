@@ -54,9 +54,10 @@ pipeline {
 								}
 								emailBodyVar += "</table>"
 								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
-								file.newWriter().withWriter { w ->
-								  w << emailBodyVar
-								}
+								def w = file.newWriter() 
+
+								w << emailBodyVar
+								//w.close()
 								println(emailBodyVar)
 							} else {
 								println(getCodeCoverage.getStatus());
@@ -86,6 +87,7 @@ pipeline {
 					if(emailBodyVar != "<br /><table><tr><th>Failures</th></tr></table></body>") {
 						File emailFile = new File("$JENKINS_HOME/email-templates/Summary.htm")
 						emailFile.append(emailBodyVar)
+						emailFile.close()
 					}
 					println(emailBodyVar)
 				}

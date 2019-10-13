@@ -49,11 +49,10 @@ pipeline {
 								for (int i = 0; i < codeCoverageJson.records.size(); ++i) {
 									if(codeCoverageJson.records[i].ApexClassOrTrigger != null) {
 										percentageResult = (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered > 0) ? codeCoverageJson.records[i].NumLinesCovered * 100 / (codeCoverageJson.records[i].NumLinesCovered + codeCoverageJson.records[i].NumLinesUncovered) : 0
-										//print("<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "</td><td>" + percentageResult.toInteger().toString() + "%</td></tr>")
 										emailBodyVar += "<tr><td>" + codeCoverageJson.records[i].ApexClassOrTrigger.Name + "</td><td>" + percentageResult.toInteger().toString() + "%</td></tr>"
 									}
 								}
-								emailBodyVar += "</table></body>"
+								emailBodyVar += "</table>"
 								File file = new File("$JENKINS_HOME/email-templates/Summary.htm")
 								file.write emailBodyVar
 								println(emailBodyVar)
@@ -89,15 +88,16 @@ pipeline {
 				def fileTable = file.split("\n")
 				def finalTextTable
 				def writingFlag = false
+				def emailBodyVar = "<br /><table><tr><th>Failures</th></tr>"
 				for (int i = 0; i < fileTable.size(); ++i) {
-					if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********")) {
+					if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********"))
 						writingFlag = !writingFlag
-					}
 					if(writingFlag) {
-						println(fileTable[i])
+						emailBodyVar += "<tr><td>" + fileTable[i] + "</td></tr>"
 					}
+					emailBodyVar += "</table></body>"
 				}
-				env.ForEmailPlugin = env.WORKSPACE
+				println(emailBodyVar)
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}
         }

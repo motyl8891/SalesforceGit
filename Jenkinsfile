@@ -90,7 +90,7 @@ pipeline {
 				def finalTextTable
 				def writingFlag = false
 				for (int i = 0; i < fileTable.size(); ++i) {
-					if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********") {
+					if(fileTable[i].contains("*********** DEPLOYMENT FAILED ***********")) {
 						writingFlag = !writingFlag
 					}
 					if(writingFlag) {

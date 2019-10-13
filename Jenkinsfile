@@ -6,10 +6,13 @@ pipeline {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
-						stdout = bat(returnStdout: true, script: 'ant runTests >> log.txt')
-						def fileTableBat = stdout.split("\n")
-						for (int i = 0; i < fileTableBat.size(); ++i) {
-							println(fileTableBat[i])
+						withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
+						usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+							stdout = bat(returnStdout: true, script: 'ant runTests >> log.txt')
+							def fileTableBat = stdout.split("\n")
+							for (int i = 0; i < fileTableBat.size(); ++i) {
+								println(fileTableBat[i])
+							}
 						}
 					}
                 }

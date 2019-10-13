@@ -103,7 +103,6 @@ pipeline {
 	post {
         always {
 			script{
-				println(emailBodyVar)
 				emailext mimeType: 'text/html', attachLog: true, body: '''${SCRIPT, template="Summary.htm"}''', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider'],[$class: 'UpstreamComitterRecipientProvider']], subject: 'Org Coverage Test Results - $JOB_NAME - $BUILD_ID'
 			}
         }

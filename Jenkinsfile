@@ -95,7 +95,7 @@ pipeline {
 	post {
         always {
             emailext 
-				body: ${SCRIPT, template="${env.WORKSPACE}/Summary.htm"}, 
+				body: '''${SCRIPT, template="Summary.htm"}''', 
 				recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
 				[$class: 'RequesterRecipientProvider'],
 				[$class: 'UpstreamComitterRecipientProvider']], 

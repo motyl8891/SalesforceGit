@@ -2,15 +2,21 @@ import groovy.json.JsonSlurper
 pipeline {
     agent any 
     stages {
+		stage('Prepare Environment') {
+            steps {
+				script {
+					if (fileExists("$JENKINS_HOME/email-templates/Summary.htm")) {
+						new File("$JENKINS_HOME/email-templates/Summary.htm").delete()
+					} else {
+						println "Summary.htm file not found"
+					}
+                }
+            }
+		}
         stage('Get Class Errors') {
             steps {
 			    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
 					script {
-						if (fileExists("$JENKINS_HOME/email-templates/Summary.htm")) {
-							new File("$JENKINS_HOME/email-templates/Summary.htm").delete()
-						} else {
-							println "Summary.htm file not found"
-						}
 						withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sfdc.maindevorg.creds',
 						usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 							stdout = bat(returnStdout: true, script: 'ant -Dsfdc.username='+USERNAME+' -Dsfdc.password='+PASSWORD+' runTests >> log.txt')
